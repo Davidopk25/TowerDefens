@@ -5,26 +5,26 @@ from classes.__init__ import (
     Field,
     Tower,
     # Menu
-    )
+)
 
 if __name__ == "__main__":
     app = Ursina(size=(720, 1080))
-
     window.vsync = False
     window.title = "Tower Defense"
     window.borderless = False
-
-    # camera.position = (0, 0, 35)
-    # camera.rotation_x = 5
+    # camera.position = (0, 350, -290)
+    # camera.rotation = (40, 0, 0)
     EditorCamera()
 
-
     game = Game()
-
     field = Field()
     tower = Tower()
 
     # menu = Menu(game)
+
+    def update():
+        if held_keys['space']:
+            game.add_money(1)
 
     app.run()
 

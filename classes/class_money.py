@@ -1,65 +1,16 @@
-from ursina import *
-
-class Money(Entity):
-    def __init__(self,
-                 add_to_scene_entities=True,
-                 enabled=False,
-                 position=None,
-                 rotation=None, scale=1,
-                 model='',
-                 collider=None,
-                 eternal=True,
-                 name='Монета',
-                 **kwargs):
-
-        super().__init__(add_to_scene_entities,
-                         enabled,
-                         position,
-                         rotation,
-                         scale,
-                         model,
-                         color,
-                         collider,
-                         eternal,
-                         name,
-                         **kwargs)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-from ursina import *
-import random
-
-class Coin(Entity):
-
-    def __init__(self, game):
-
-        super().__init__(
-            model='sphere',
-            color=color.yellow,
-            scale=0.5,
-            position=(
-                random.uniform(-10,10),
-                1,
-                random.uniform(-10,10),
-            )
-        )
-
+class Money:
+    def __init__(self, game, start_amount=0):
         self.game = game
+        self.amount = start_amount
 
-    def input(self, key):
+    def add(self, value):
+        self.amount += value
+        self.game.add_money(value)
 
-        if self.hovered and key == 'left mouse down':
-
-            self.game.money += 1
-            destroy(self)
+    def spend(self, value):
+        if self.amount >= value:
+            self.amount -= value
+            self.game.money -= value
+            self.game.money_text.text = f'Money: {self.game.money}'
+            return True
+        return False

@@ -1,33 +1,28 @@
 from ursina import *
+from ursina import camera
 from . import *
 
-# settings = Settings()
-
 class Game:
-    pass
-    # def setup(self):
-    #     if settings.game_over:
-    #         self.btn_start = ButtonStart()
-    #         self.btn_exit = ButtonExit()
-    #         self.text_live = TextLive()
-    #         self.text_score = TextScore()
-    #         self.player = Player()
-    #         settings.game_over = False
-    #         self.enemies = [Enemy() for _ in range(40)]
-    #         self.resources = [Resources() for _ in range(15)]
-    #         self.collisions = Collisions()
-    #         self.sounds = Sounds()
+    def __init__(self):
+        self.money = 0
 
+        self.coin_icon = Entity(
+            parent=camera.ui,
+            model='quad',
+            texture='icons/coin.png',
+            position=(-0.31, 0.465),
+            scale=(0.07, 0.04)
+        )
 
-    # def update(self):
+        self.money_text = Text(
+            text=f'{self.money}',
+            parent=camera.ui,
+            position=(-0.29, 0.48),
+            origin=(-0.5, 0.5),
+            scale=1.5,
+            color=color.yellow
+        )
 
-    #     self.text_live.update()
-    #     self.text_score.update()
-    #     self.collisions.check_collide(
-    #         player=self.player,
-    #         enemies=self.enemies,
-    #         resources=self.resources,
-    #         text_live=self.text_live,
-    #         text_score=self.text_score,
-    #         sounds=self.sounds
-    #     )
+    def add_money(self, amount):
+        self.money += amount
+        self.money_text.text = f'{self.money}'
