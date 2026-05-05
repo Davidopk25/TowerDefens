@@ -1,10 +1,11 @@
 from ursina import *
+from classes.class_money import Money
 from ursina import camera
 from . import *
 
 class Game:
     def __init__(self):
-        self.money = 0
+        self.money = Money(self)
 
         self.coin_icon = Entity(
             parent=camera.ui,
@@ -15,7 +16,7 @@ class Game:
         )
 
         self.money_text = Text(
-            text=f'{self.money}',
+            text=f'{self.money.amount}',
             parent=camera.ui,
             position=(-0.29, 0.48),
             origin=(-0.5, 0.5),
@@ -24,5 +25,4 @@ class Game:
         )
 
     def add_money(self, amount):
-        self.money += amount
-        self.money_text.text = f'{self.money}'
+        self.money_text.text = f'{self.money.amount}'
