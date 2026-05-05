@@ -1,60 +1,55 @@
 from ursina import *
 
 class Tower(Entity):
-    def __init__(self, **kwargs): #team
-                super().__init__(
-                    position= (0, 0, 0),
-                    rotation=(0, -180, 0),
-                    scale=10,
-                    model="models\Tower.obj",
-                    texture="models\Tower.png",
-                    # color=color.white,
-                    **kwargs
-                    # color=color.blue, if team == 'player' else color.red,
-                    )
-                # self.team = team
-                # self.hp = 1000
-                # self.y = -7 if team == 'player' else 7
-        # self.health_bar = Entity(parent=self, model='quad', color=color.green, scale=(1.5, 0.2), y=1.2)
+    def __init__(self, team='player',  **kwargs):
+            z_position = 600 if team == 'player' else 0
+            y_rotation = 0 if team == 'player' else 180
 
-        # def update(self):
-        #     self.health_bar.scale_x = (self.hp / 1000) * 1.5
-        #     if self.hp <= 0:
-        #         print(f"{self.team} tower destroyed!")
-        #         destroy(self)
-            # Тут можно добавить экран победы/поражения
+            super().__init__(
+                position= (0, -0.5, z_position),
+                rotation=(0, y_rotation, 0),
+                scale=10,
+                model="models/Tower.obj",
+                texture="models/Tower.png",
+                **kwargs
+                )
+            self.team = team
+            self.hp = 1500
 
-    # def on_click(self):
-    #     if self.team == 'player':
-    #         spawn_menu.enabled = not spawn_menu.enabled
+            self.health_bar = Entity(
+                parent=self,
+                model='quad',
+                color=color.green,
+                scale=(0.1, 30),
+                position=(0, 12.5, -5),
+                rotation=(0, 0, 90)
+                )
 
+            self.health_text = Text(
+                parent=self,
+                text=str(self.hp),
+                position=(0, 12.45, -5.3),
+                rotation=(0, 0, 0),
+                scale=65,
+                color=color.white,
+                origin=(0,0)
+            )
 
+    def update(self):
+        self.health_bar.scale_x = (self.hp / 1500) * 1.5
+        self.health_text.text = str(max(0, int(self.hp)))
 
+        if self.hp <= 0:
+            print(f"{self.team} tower destroyed!")
+            destroy(self)
+    # Тут можно добавить экран победы/поражения
 
+    def take_damage(self, amount):
+        self.hp -= amount
 
+        if self.hp < 0:
+            self.hp = 0
 
-
-
-# from ursina import *
-# from unit import Unit
-
-# class Tower(Entity):
-
-#     def __init__(self, game, position):
-
-#         super().__init__(
-#             model='cube',
-#             scale=2,
-#             position=position,
-#             color=color.dark_gray
-#         )
-
-#         self.game = game
-
-#     def update(self):
-
-#         for unit in self.game.units:
-
-#             if distance(self, unit) < 10:
-
-#                 unit.hp -= 5 * time.dt
+        # def on_click(self):
+        #     if self.team == 'player':
+        #         spawn_menu.enabled = not spawn_menu.enabled
