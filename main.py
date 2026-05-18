@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from classes.class_FallingCoin import FallingCoin
 from classes.class_menu import Menu
 from ursina import *

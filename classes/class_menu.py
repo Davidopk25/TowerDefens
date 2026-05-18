@@ -1,10 +1,14 @@
+from .unit.class_Knight import Knight
+from .unit.class_Archer import Archer
+from .unit.class_Giant import Giant
 from ursina import *
 
 class Menu(Entity):
     def __init__(self, game, field):
         super().__init__(parent=field)
         self.groups = []
-
+        self.field = field
+        self.lane_offsets = [88, 0, -88]
         right_group = []
 
         sword_right = Button(
@@ -18,7 +22,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Knight", 2)
         )
 
         bow_right = Button(
@@ -32,7 +37,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Bow", 2)
         )
 
         giant_right = Button(
@@ -46,7 +52,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Giant", 2)
         )
 
         right_group.extend([sword_right, bow_right, giant_right])
@@ -78,7 +85,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Knight", 1)
         )
 
         bow_center = Button(
@@ -92,7 +100,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Bow", 1)
         )
 
         giant_center = Button(
@@ -106,7 +115,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Giant", 1)
         )
 
         center_group.extend([sword_center, bow_center, giant_center])
@@ -138,7 +148,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Knight", 0)
         )
 
         bow_left = Button(
@@ -152,7 +163,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Bow", 0)
         )
 
         giant_left = Button(
@@ -166,7 +178,8 @@ class Menu(Entity):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.gray,
-            text=''
+            text='',
+            on_click=lambda: self.spawn_unit("Giant", 0)
         )
 
         left_group.extend([sword_left, bow_left, giant_left])
@@ -189,3 +202,17 @@ class Menu(Entity):
         visible = not group[0].enabled
         for button in group:
             button.enabled = visible
+
+    def spawn_unit(self, unit_type, lane_index):
+        lane_x = self.lane_offsets[lane_index]
+        spawn_position = (
+            lane_x,
+            10,
+            self.field.player_spawn_z
+        )
+        if unit_type == "Knight":
+            Knight(position=spawn_position)
+        elif unit_type == "Bow":
+            Archer(position=spawn_position)
+        elif unit_type == "Giant":
+            Giant(position=spawn_position)

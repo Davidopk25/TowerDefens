@@ -1,12 +1,15 @@
 from ursina import *
 
 class Giant(Entity):
-    def __init__(self):
+    def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
-            model='models\Gigant.blend',
-            speed=30,
-            attack_speed=2.0,
-            health=900,
-            damage=65,
-            price=150
-            )
+            model='cube',
+            position=position,
+            scale=(18, 25, 18),
+            **kwargs
+        )
+        self.speed = 30
+        self.attack_speed = 2.0
+        self.health = 900
+        self.damage = 65
+        self.price = 150

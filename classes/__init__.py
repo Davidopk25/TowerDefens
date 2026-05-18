@@ -4,7 +4,7 @@ from .class_field import Field
 from .class_ballista import Ballista
 from .class_tower import Tower
 from .class_menu import Menu
-from .unit import Archer,Giant,Swordsman
+from .unit import Archer, Giant, Knight
 
 __all__ = [
     Game,
@@ -13,7 +13,7 @@ __all__ = [
     Ballista,
     Archer,
     Giant,
-    Swordsman,
+    Knight,
     Menu,
     Tower,
 ]

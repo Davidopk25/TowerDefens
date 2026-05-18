@@ -11,7 +11,7 @@ class Tower(Entity):
                 scale=10,
                 model="models/Tower.obj",
                 texture="models/Tower.png",
-                **kwargs
+                **kwargs,
                 )
             self.team = team
             self.hp = 1500
@@ -42,7 +42,6 @@ class Tower(Entity):
         if self.hp <= 0:
             print(f"{self.team} tower destroyed!")
             destroy(self)
-    # Тут можно добавить экран победы/поражения
 
     def take_damage(self, amount):
         self.hp -= amount
