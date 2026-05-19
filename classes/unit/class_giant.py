@@ -9,7 +9,14 @@ class Giant(Entity):
             **kwargs
         )
         self.speed = 30
-        self.attack_speed = 2.0
         self.health = 900
         self.damage = 65
         self.price = 150
+        self.enemy_tower = None
+
+    def update(self):
+        self.z += self.speed * time.dt
+        if self.z >= 550:
+            if self.enemy_tower:
+                self.enemy_tower.take_damage(self.damage)
+            destroy(self)

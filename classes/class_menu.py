@@ -210,9 +210,13 @@ class Menu(Entity):
             10,
             self.field.player_spawn_z
         )
+        unit = None
         if unit_type == "Knight":
             Knight(position=spawn_position)
         elif unit_type == "Bow":
             Archer(position=spawn_position)
         elif unit_type == "Giant":
             Giant(position=spawn_position)
+        if unit:
+            print(self.field.enemy_tower)
+            unit.enemy_tower = self.enemy_tower

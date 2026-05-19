@@ -10,7 +10,14 @@ class Archer(Entity):
             **kwargs
         )
         self.speed = 70
-        self.attack_speed = 0.8
         self.health = 150
         self.damage = 35
         self.price = 60
+        self.enemy_tower = None
+
+    def update(self):
+        self.z += self.speed * time.dt
+        if self.z >= 550:
+            if self.enemy_tower:
+                self.enemy_tower.take_damage(self.damage)
+            destroy(self)

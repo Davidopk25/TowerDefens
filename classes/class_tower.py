@@ -45,10 +45,5 @@ class Tower(Entity):
 
     def take_damage(self, amount):
         self.hp -= amount
-
         if self.hp < 0:
             self.hp = 0
-
-        # def on_click(self):
-        #     if self.team == 'player':
-        #         spawn_menu.enabled = not spawn_menu.enabled

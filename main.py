@@ -2,6 +2,8 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from classes.class_FallingCoin import FallingCoin
+from classes.class_field import Field
+from classes.class_tower import Tower
 from classes.class_menu import Menu
 from ursina import *
 import random
@@ -22,10 +24,13 @@ if __name__ == "__main__":
     # EditorCamera()
     game = Game()
     field = Field()
-    menu = Menu(game, field)
     tower = Tower()
     player_tower = Tower(team='player')
-    bot_tower = Tower(team='bot')
+    enemy_tower = Tower(team='enemy')
+    field.player_tower = player_tower
+    field.enemy_tower = enemy_tower
+    menu = Menu(game=app, field=field)
+    menu.enemy_tower = enemy_tower
     sky = Sky(Texture="sky_sunset")
     ground = Entity(
         model='plane',
