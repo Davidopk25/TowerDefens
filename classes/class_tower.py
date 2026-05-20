@@ -12,6 +12,7 @@ class Tower(Entity):
                 model="models/Tower.obj",
                 texture="models/Tower.png",
                 **kwargs,
+
                 )
             self.team = team
             self.hp = 1500
@@ -47,3 +48,4 @@ class Tower(Entity):
         self.hp -= amount
         if self.hp < 0:
             self.hp = 0
+

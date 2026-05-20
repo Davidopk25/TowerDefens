@@ -1,8 +1,9 @@
 # import time
 # import threading
- 
+
 # import random
- 
+
+
 # class Bots:
 # # Добавление монет боту
 #     coins = 100
@@ -11,9 +12,9 @@
 #     #     while True:
 #     #         time.sleep(5)
 #     #         coins += 1
- 
+
 #     # threading.Thread(target=add_coins, daemon=True).start()
- 
+
 #     def Bot():
 #         global unit
 #         global coins
@@ -37,18 +38,18 @@
 #                 coins = -30
 #             else:
 #                 Bots.Bot()
- 
+
 # bots = Bots()
- 
+
 # while True:
 #     time_bot = random.randint(1, 10)
 #     time.sleep(time_bot)
 #     Bots.Bot()
- 
+
 import time
 import threading
 import random
- 
+
 class Bot:
     """
     Класс, представляющий одного бота-игрока.
@@ -57,10 +58,10 @@ class Bot:
         # Баланс монет для каждого бота индивидуален
         self.coins = 100
         self.is_running = True
- 
+
         # Запускаем поток для пополнения монет
         self._start_coins_thread()
- 
+
     def _start_coins_thread(self):
         """Запускает поток, который добавляет монеты."""
         def add_coins():
@@ -69,11 +70,11 @@ class Bot:
                 time.sleep(random.randint(2, 5))
                 self.coins += random.randint(1, 5)
                 print(f"Монеты пополнены! Текущий баланс: {self.coins}")
- 
+
         # Поток будет завершаться вместе с основной программой
         thread = threading.Thread(target=add_coins, daemon=True)
         thread.start()
- 
+
     def buy_unit(self):
         """Попытка купить юнита."""
         prices = {1: 10, 2: 20, 3: 30}
@@ -93,24 +94,25 @@ class Bot:
                 # Если не хватает, ждем немного и пробуем снова
                 print(f"Не хватает {price - self.coins} монет для покупки. Ждем...")
                 time.sleep(1)
- 
+
     def stop(self):
         """Останавливает работу бота."""
         self.is_running = False
- 
+
 # --- Основная программа ---
 # if __name__ == "__main__":
 #     # Создаем экземпляр бота
 #     my_bot = Bot()
- 
+
     # try:
         # Бесконечный цикл основной логики
         # while True:
             # Боты действуют с разной частотой
             # time.sleep(random.randint(1, 5))
             # my_bot.buy_unit()
- 
+
     # except KeyboardInterrupt:
     #     # Позволяет корректно остановить программу по Ctrl+C
     #     print("\nОстановка симуляции...")
     #     my_bot.stop()
+
