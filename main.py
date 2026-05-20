@@ -1,5 +1,6 @@
 from classes.class_FallingCoin import FallingCoin
 from classes.class_menu import Menu
+from classes.class_bot import Bot
 from ursina import *
 import random
 
@@ -20,6 +21,7 @@ if __name__ == "__main__":
     game = Game()
     field = Field()
     menu = Menu(game, field)
+    my_bot = Bot()
     tower = Tower()
     player_tower = Tower(team='player')
     bot_tower = Tower(team='bot')
