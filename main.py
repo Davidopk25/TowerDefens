@@ -14,15 +14,20 @@ if __name__ == "__main__":
     window.title = "Tower Defense"
     window.borderless = False
 
-    # camera.position = (0, 0, 35)
-    # camera.rotation_x = 5
-    EditorCamera()
+    camera.position = (0, 525, -200)
+    camera.rotation_x = 45
+    # EditorCamera()
 
 
     game = Game()
 
     field = Field()
+
     tower = Tower()
+    player_tower = Tower(team='player')
+    bot_tower = Tower(team='bot')
+
+    sky = Sky(Texture="sky_sunset")
 
     # menu = Menu(game)
 
@@ -89,9 +94,6 @@ if __name__ == "__main__":
 # enemy_zone_line = Entity(model='quad', scale=(10, 0.05), y=4, color=color.red, z=0.9)
 # player_zone_line = Entity(model='quad', scale=(10, 0.05), y=-4, color=color.green, z=0.9)
 
-# # Башни
-# player_tower = Tower('player')
-# enemy_tower = Tower('enemy')
 
 # # Баллисты (декор + базовая логика урона может быть добавлена как в классе Unit)
 # for x_pos in [-2, 0, 2]:
