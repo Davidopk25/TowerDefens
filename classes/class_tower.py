@@ -11,7 +11,8 @@ class Tower(Entity):
                 scale=10,
                 model="models/Tower.obj",
                 texture="models/Tower.png",
-                **kwargs
+                **kwargs,
+
                 )
             self.team = team
             self.hp = 1500
@@ -21,14 +22,14 @@ class Tower(Entity):
                 model='quad',
                 color=color.green,
                 scale=(0.1, 30),
-                position=(0, 12.5, -5),
+                position=(0, 15, -5),
                 rotation=(0, 0, 90)
                 )
 
             self.health_text = Text(
                 parent=self,
                 text=str(self.hp),
-                position=(0, 12.45, -5.3),
+                position=(0, 14.9, -5.3),
                 rotation=(0, 0, 0),
                 scale=65,
                 color=color.white,
@@ -42,14 +43,9 @@ class Tower(Entity):
         if self.hp <= 0:
             print(f"{self.team} tower destroyed!")
             destroy(self)
-    # Тут можно добавить экран победы/поражения
 
     def take_damage(self, amount):
         self.hp -= amount
-
         if self.hp < 0:
             self.hp = 0
 
-        # def on_click(self):
-        #     if self.team == 'player':
-        #         spawn_menu.enabled = not spawn_menu.enabled
