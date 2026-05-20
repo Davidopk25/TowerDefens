@@ -11,7 +11,11 @@ class Tower(Entity):
                 scale=10,
                 model="models/Tower.obj",
                 texture="models/Tower.png",
+<<<<<<< HEAD
                 **kwargs
+=======
+                **kwargs,
+>>>>>>> origin/Rat
                 )
             self.team = team
             self.hp = 1500
@@ -42,6 +46,7 @@ class Tower(Entity):
         if self.hp <= 0:
             print(f"{self.team} tower destroyed!")
             destroy(self)
+<<<<<<< HEAD
     # Тут можно добавить экран победы/поражения
 
     def take_damage(self, amount):
@@ -54,3 +59,10 @@ class Tower(Entity):
         #     if self.team == 'player':
         #         spawn_menu.enabled = not spawn_menu.enabled
 
+=======
+
+    def take_damage(self, amount):
+        self.hp -= amount
+        if self.hp < 0:
+            self.hp = 0
+>>>>>>> origin/Rat

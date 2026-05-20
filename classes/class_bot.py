@@ -3,6 +3,7 @@
 
 # import random
 
+
 # class Bots:
 # # Добавление монет боту
 #     coins = 100
@@ -99,22 +100,19 @@ class Bot:
         self.is_running = False
 
 # --- Основная программа ---
-if __name__ == "__main__":
-    # Создаем экземпляр бота
-    my_bot = Bot()
+# if __name__ == "__main__":
+#     # Создаем экземпляр бота
+#     my_bot = Bot()
 
-    try:
+    # try:
         # Бесконечный цикл основной логики
-        while True:
+        # while True:
             # Боты действуют с разной частотой
-            time.sleep(random.randint(1, 5))
-            my_bot.buy_unit()
+            # time.sleep(random.randint(1, 5))
+            # my_bot.buy_unit()
 
-    except KeyboardInterrupt:
-        # Позволяет корректно остановить программу по Ctrl+C
-        print("\nОстановка симуляции...")
-        my_bot.stop()
-
-
-
+    # except KeyboardInterrupt:
+    #     # Позволяет корректно остановить программу по Ctrl+C
+    #     print("\nОстановка симуляции...")
+    #     my_bot.stop()
 

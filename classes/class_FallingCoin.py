@@ -14,8 +14,9 @@ class FallingCoin(Button):
             color=color.white,
             highlight_color=color.light_gray,
             pressed_color=color.white,
-            model='models/coin.obj',
-            texture='models/coin-texture.jpg',
+            model='models/Coin.obj',
+            texture='models/Coin.png',
+
             scale=10,
             position=(x, 100, z),
             rotation_x = 90,

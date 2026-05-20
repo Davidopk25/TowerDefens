@@ -1,18 +1,18 @@
 from ursina import *
 enemy_tower = None
 
-class Archer(Entity):
+class Knight(Entity):
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
             model='models\Knight.glb',
-            scale=(8, 14, 8),
+            scale=(15, 20, 15),
             position=position,
             **kwargs
         )
-        self.speed = 70
-        self.health = 150
-        self.damage = 35
-        self.price = 60
+        self.speed = 60
+        self.health = 300
+        self.damage = 40
+        self.price = 50
         self.enemy_tower = None
 
     def update(self):
