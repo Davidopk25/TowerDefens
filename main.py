@@ -14,9 +14,9 @@ if __name__ == "__main__":
     window.title = "Tower Defense"
     window.borderless = False
 
-    # camera.position = (0, 350, -290)
-    # camera.rotation_x = 40
-    EditorCamera()
+    camera.position = (0, 525, -200)
+    camera.rotation_x = 45
+    # EditorCamera()
 
 
     game = Game()
