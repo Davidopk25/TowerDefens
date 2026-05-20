@@ -21,14 +21,14 @@ class Tower(Entity):
                 model='quad',
                 color=color.green,
                 scale=(0.1, 30),
-                position=(0, 12.5, -5),
+                position=(0, 15, -5),
                 rotation=(0, 0, 90)
                 )
 
             self.health_text = Text(
                 parent=self,
                 text=str(self.hp),
-                position=(0, 12.45, -5.3),
+                position=(0, 14.9, -5.3),
                 rotation=(0, 0, 0),
                 scale=65,
                 color=color.white,
@@ -53,3 +53,4 @@ class Tower(Entity):
         # def on_click(self):
         #     if self.team == 'player':
         #         spawn_menu.enabled = not spawn_menu.enabled
+
