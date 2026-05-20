@@ -1,10 +1,10 @@
 from ursina import *
+enemy_tower = None
 
 class Archer(Entity):
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
-            model='cube',
-            color=color.green,
+            model='models\Knight.glb',
             scale=(8, 14, 8),
             position=position,
             **kwargs
@@ -18,6 +18,6 @@ class Archer(Entity):
     def update(self):
         self.z += self.speed * time.dt
         if self.z >= 550:
-            if self.enemy_tower:
-                self.enemy_tower.take_damage(self.damage)
+            if enemy_tower:
+                enemy_tower.take_damage(self.damage)
             destroy(self)

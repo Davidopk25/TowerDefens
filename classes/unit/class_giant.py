@@ -1,11 +1,13 @@
 from ursina import *
+enemy_tower = None
 
 class Giant(Entity):
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
-            model='cube',
+            model = 'models\Giant1.glb',
+            scale=(15, 22, 15),
+            rotation=(0, 180, 0),
             position=position,
-            scale=(18, 25, 18),
             **kwargs
         )
         self.speed = 30
@@ -17,6 +19,6 @@ class Giant(Entity):
     def update(self):
         self.z += self.speed * time.dt
         if self.z >= 550:
-            if self.enemy_tower:
-                self.enemy_tower.take_damage(self.damage)
+            if enemy_tower:
+                enemy_tower.take_damage(self.damage)
             destroy(self)

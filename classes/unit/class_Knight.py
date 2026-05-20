@@ -1,11 +1,11 @@
 from ursina import *
+enemy_tower = None
 
 class Knight(Entity):
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
-            model='cube',
-            color=color.red,
-            scale=(10, 15, 10),
+            model='models\Knight.glb',
+            scale=(15, 20, 15),
             position=position,
             **kwargs
         )
@@ -18,6 +18,6 @@ class Knight(Entity):
     def update(self):
         self.z += self.speed * time.dt
         if self.z >= 550:
-            if self.enemy_tower:
-                self.enemy_tower.take_damage(self.damage)
+            if enemy_tower:
+                enemy_tower.take_damage(self.damage)
             destroy(self)
