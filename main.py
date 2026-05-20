@@ -8,8 +8,8 @@ from classes.class_menu import Menu
 from classes.class_game import Game
 from classes.class_bot import Bot
 from classes.unit import class_Knight
-from classes.unit import class_archer
-from classes.unit import class_giant
+from classes.unit import class_Archer
+from classes.unit import class_Giant
 from ursina import *
 import random
 import asyncio
@@ -28,8 +28,8 @@ if __name__ == "__main__":
     player_tower = Tower(team='player')
     enemy_tower = Tower(team='enemy')
     class_Knight.enemy_tower = player_tower
-    class_archer.enemy_tower = player_tower
-    class_giant.enemy_tower = player_tower
+    class_Archer.enemy_tower = player_tower
+    class_Giant.enemy_tower = player_tower
     field.player_tower = player_tower
     field.enemy_tower = enemy_tower
     menu = Menu(game=app, field=field)
