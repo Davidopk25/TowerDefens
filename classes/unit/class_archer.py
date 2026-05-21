@@ -2,6 +2,7 @@ from ursina import *
 enemy_tower = None
 
 class Archer(Entity):
+    price = 60
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
             model='models\Knight.glb',
@@ -12,12 +13,15 @@ class Archer(Entity):
         self.speed = 70
         self.health = 150
         self.damage = 35
-        self.price = 60
         self.enemy_tower = None
 
     def update(self):
         self.z += self.speed * time.dt
-        if self.z >= 550:
-            if enemy_tower:
-                enemy_tower.take_damage(self.damage)
+        if self.speed > 0 and self.z >= 550:
+            if self.enemy_tower:
+                self.enemy_tower.take_damage(self.damage)
+            destroy(self)
+        elif self.speed < 0 and self.z <= 50:
+            if self.enemy_tower:
+                self.enemy_tower.take_damage(self.damage)
             destroy(self)

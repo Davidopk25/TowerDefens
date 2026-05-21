@@ -1,7 +1,7 @@
 from ursina import *
 
 class Field(Entity):
-    def __init__(self, **kwargs):
+    def __init__(self, game, **kwargs):
         self.player_spawn_z = 80
         self.enemy_spawn_z = 520
         super().__init__(
@@ -13,6 +13,7 @@ class Field(Entity):
             collider='box',
             **kwargs
         )
+        self.game = game
         self.path_z_start = 0
         self.path_z_end = 600
         lane_offsets = [-88, 0, 88]

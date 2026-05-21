@@ -34,7 +34,7 @@ class Game:
         self.money_text = Text(
             text=f'{self.money.amount}',
             parent=camera.ui,
-            position=(-0.29, 0.48),
+            position=(-0.29, 0.4815),
             origin=(-0.5, 0.5),
             scale=1.5,
             color=color.yellow

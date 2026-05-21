@@ -211,13 +211,18 @@ class Menu(Entity):
             10,
             self.field.player_spawn_z
         )
-        unit = None
+        unit_class = None
         if unit_type == "Knight":
-            Knight(position=spawn_position)
+            unit_class = Knight
         elif unit_type == "Bow":
-            Archer(position=spawn_position)
+            unit_class = Archer
         elif unit_type == "Giant":
-            Giant(position=spawn_position)
-        if unit:
+            unit_class = Giant
+        if unit_class is None:
+            return
+        if self.field.game.money.spend(unit_class.price):
+            unit = unit_class(position=spawn_position)
             print(self.field.enemy_tower)
-            unit.enemy_tower = self.enemy_tower
+            unit.enemy_tower = self.field.enemy_tower
+        else:
+            print("Не хватает монет")

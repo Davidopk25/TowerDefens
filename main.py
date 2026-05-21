@@ -12,19 +12,17 @@ from classes.unit import class_Archer
 from classes.unit import class_Giant
 from ursina import *
 import random
-import asyncio
 
 if __name__ == "__main__":
     app = Ursina(size=(720, 1080))
     window.vsync = False
     window.title = "Tower Defense"
     window.borderless = False
-
-    camera.position = (0, 475, -200)
-    camera.rotation_x = 45
-    # EditorCamera()
+    # camera.position = (0, 475, -200)
+    # camera.rotation_x = 45
+    EditorCamera()
     game = Game()
-    field = Field()
+    field = Field(game=game)
     player_tower = Tower(team='player')
     enemy_tower = Tower(team='enemy')
     class_Knight.enemy_tower = player_tower
@@ -33,7 +31,7 @@ if __name__ == "__main__":
     field.player_tower = player_tower
     field.enemy_tower = enemy_tower
     menu = Menu(game=app, field=field)
-    my_bot = Bot()
+    my_bot = Bot(field)
 
     sky = Sky(Texture="sky_sunset")
     ground = Entity(
@@ -46,19 +44,12 @@ if __name__ == "__main__":
     )
 
     def update():
-        if held_keys['space']:
-            game.add_money(1)
+        game.money.update()
+        my_bot.update()
 
     def spawn_coin():
         FallingCoin(game=game, field=ground)
         invoke(spawn_coin, delay=random.uniform(13, 13))
 
-    async def spawn_bot():
-        while True:
-            await asyncio.sleep(random.randint(1, 5))  # Асинхронная пауза
-            my_bot.buy_unit()  # Синхронный вызов
-
     spawn_coin()
-    spawn_bot()
     app.run()
-
