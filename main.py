@@ -18,9 +18,9 @@ if __name__ == "__main__":
     window.vsync = False
     window.title = "Tower Defense"
     window.borderless = False
-    # camera.position = (0, 475, -200)
-    # camera.rotation_x = 45
-    EditorCamera()
+    camera.position = (0, 475, -200)
+    camera.rotation_x = 45
+    # EditorCamera()
     game = Game()
     field = Field(game=game)
     player_tower = Tower(team='player')

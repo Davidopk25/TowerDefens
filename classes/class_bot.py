@@ -43,7 +43,6 @@ class Bot:
         )
         unit = unit_class(
             position=spawn_position,
-            rotation=(0, 0, 0)
         )
         unit.speed = -abs(unit.speed)
         unit.enemy_tower = self.field.enemy_tower
