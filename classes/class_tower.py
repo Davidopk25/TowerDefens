@@ -68,7 +68,6 @@ class Tower2(Entity):
             position=(0, 14.2, -5),
             rotation=(0, 0, 90),
             origin=(0.5, 0),
-            billboard=True
         )
         self.health_text = Text(
             parent=self,

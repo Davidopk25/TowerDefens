@@ -10,8 +10,8 @@ class Knight(Entity):
             **kwargs
         )
         self.speed = 60
-        self.health = 300
-        self.damage = 40
+        self.health = 50
+        self.damage = 30
         self.enemy_tower = None
 
     def update(self):

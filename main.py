@@ -33,7 +33,6 @@ if __name__ == "__main__":
     menu = Menu(game=game, field=field, enemy_tower=enemy_tower)
     menu.enemy_tower = enemy_tower
     my_bot = Bot(field)
-
     sky = Sky(Texture="sky_sunset")
     ground = Entity(
         model='plane',

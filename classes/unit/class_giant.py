@@ -12,8 +12,8 @@ class Giant(Entity):
             **kwargs
         )
         self.speed = 30
-        self.health = 900
-        self.damage = 65
+        self.health = 80
+        self.damage = 100
         self.enemy_tower = None
 
     def update(self):

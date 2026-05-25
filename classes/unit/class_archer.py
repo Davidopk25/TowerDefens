@@ -11,8 +11,8 @@ class Archer(Entity):
             **kwargs
         )
         self.speed = 70
-        self.health = 150
-        self.damage = 35
+        self.health = 30
+        self.damage = 50
         self.enemy_tower = None
 
     def update(self):
