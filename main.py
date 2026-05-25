@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from classes.class_FallingCoin import FallingCoin
 from classes.class_field import Field
-from classes.class_tower import Tower
+from classes.class_tower import Tower1, Tower2
 from classes.class_menu import Menu
 from classes.class_game import Game
 from classes.class_bot import Bot
@@ -23,8 +23,8 @@ if __name__ == "__main__":
     # EditorCamera()
     game = Game()
     field = Field(game=game)
-    player_tower = Tower(team='enemy')
-    enemy_tower = Tower(team='player')
+    player_tower = Tower1(team='enemy')
+    enemy_tower = Tower2(team='player')
     class_Knight.enemy_tower = player_tower
     class_Archer.enemy_tower = player_tower
     class_Giant.enemy_tower = player_tower
