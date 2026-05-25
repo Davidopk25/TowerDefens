@@ -7,7 +7,7 @@ import random
 class Bot:
     def __init__(self, field):
         self.field = field
-        self.money = 100
+        self.money = 0
         self.passive_income_timer = 0
         self.passive_income_per_second = 5
         self.action_timer = random.uniform(3, 8)
@@ -31,7 +31,6 @@ class Bot:
     def try_spawn_unit(self):
         unit_class = random.choice(self.units)
         if self.money < unit_class.price:
-            print("Боту не хватает монет")
             return
         self.money -= unit_class.price
         lane_index = random.randint(0, 2)
@@ -45,8 +44,4 @@ class Bot:
             position=spawn_position,
         )
         unit.speed = -abs(unit.speed)
-        unit.enemy_tower = self.field.enemy_tower
-        print(
-            f"Бот заспавнил {unit_class.__name__} "
-            f"на линии {lane_index}"
-        )
+        unit.enemy_tower = self.field.player_tower

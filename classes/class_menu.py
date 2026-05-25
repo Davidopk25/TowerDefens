@@ -1,15 +1,17 @@
-
 from .unit.class_Knight import Knight
 from .unit.class_Archer import Archer
 from .unit.class_Giant import Giant
 from ursina import *
 
 class Menu(Entity):
-    def __init__(self, game, field):
+    def __init__(self, game, field, enemy_tower):
         super().__init__(parent=field)
-        self.groups = []
+        self.game = game
         self.field = field
+        self.enemy_tower = enemy_tower
+        self.groups = []
         self.lane_offsets = [88, 0, -88]
+
         right_group = []
 
         sword_right = Button(
@@ -59,7 +61,7 @@ class Menu(Entity):
 
         right_group.extend([sword_right, bow_right, giant_right])
 
-        blank_right = Button(
+        Button(
             parent=self,
             model='quad',
             texture='icons/Blank.png',
@@ -122,7 +124,7 @@ class Menu(Entity):
 
         center_group.extend([sword_center, bow_center, giant_center])
 
-        blank_center = Button(
+        Button(
             parent=self,
             model='quad',
             texture='icons/Blank.png',
@@ -185,7 +187,7 @@ class Menu(Entity):
 
         left_group.extend([sword_left, bow_left, giant_left])
 
-        blank_left = Button(
+        Button(
             parent=self,
             model='quad',
             texture='icons/Blank.png',
@@ -220,9 +222,8 @@ class Menu(Entity):
             unit_class = Giant
         if unit_class is None:
             return
-        if self.field.game.money.spend(unit_class.price):
-            unit = unit_class(position=spawn_position)
-            print(self.field.enemy_tower)
-            unit.enemy_tower = self.field.enemy_tower
-        else:
+        if not self.game.money.spend(unit_class.price):
             print("Не хватает монет")
+            return
+        unit = unit_class(position=spawn_position)
+        unit.enemy_tower = self.enemy_tower

@@ -1,5 +1,4 @@
 from ursina import *
-enemy_tower = None
 
 class Knight(Entity):
     price = 50

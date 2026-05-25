@@ -23,14 +23,15 @@ if __name__ == "__main__":
     # EditorCamera()
     game = Game()
     field = Field(game=game)
-    player_tower = Tower(team='player')
-    enemy_tower = Tower(team='enemy')
+    player_tower = Tower(team='enemy')
+    enemy_tower = Tower(team='player')
     class_Knight.enemy_tower = player_tower
     class_Archer.enemy_tower = player_tower
     class_Giant.enemy_tower = player_tower
     field.player_tower = player_tower
     field.enemy_tower = enemy_tower
-    menu = Menu(game=app, field=field)
+    menu = Menu(game=game, field=field, enemy_tower=enemy_tower)
+    menu.enemy_tower = enemy_tower
     my_bot = Bot(field)
 
     sky = Sky(Texture="sky_sunset")
