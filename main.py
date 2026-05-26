@@ -1,7 +1,6 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
 from classes.class_FallingCoin import FallingCoin
 from classes.class_field import Field
 from classes.class_tower import Tower1, Tower2
@@ -14,11 +13,9 @@ import random
 
 active_units = []
 active_coins = []
-
 ui_overlay = None
 ui_text = None
 ui_restart_btn = None
-
 game_is_over = False
 
 def init_game():

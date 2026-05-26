@@ -4,8 +4,9 @@ class Knight(Entity):
     price = 50
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
-            model='models/Knight.glb',
+            model='models/Rat.glb',
             scale=(15, 20, 15),
+            rotation=(0, 0, 0),
             position=position,
             collider='box',
             **kwargs
