@@ -7,7 +7,7 @@ import random
 class Bot:
     def __init__(self, field):
         self.field = field
-        self.money = 0
+        self.money = 100
         self.passive_income_timer = 0
         self.passive_income_per_second = 5
         self.action_timer = random.uniform(3, 8)
@@ -45,3 +45,5 @@ class Bot:
         )
         unit.speed = -abs(unit.speed)
         unit.enemy_tower = self.field.player_tower
+        if '__main__' in sys.modules and hasattr(sys.modules['__main__'], 'active_units'):
+           sys.modules['__main__'].active_units.append(unit)

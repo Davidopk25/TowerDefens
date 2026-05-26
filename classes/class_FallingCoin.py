@@ -25,6 +25,8 @@ class FallingCoin(Button):
         self.rotation_speed = 270
         self.fall_speed = 100
         self.grounded = False
+        if '__main__' in sys.modules and hasattr(sys.modules['__main__'], 'active_coins'):
+           sys.modules['__main__'].active_coins.append(self)
         invoke(self.remove_coin, delay=10)
 
     def update(self):

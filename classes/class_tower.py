@@ -39,6 +39,9 @@ class Tower1(Entity):
         self.health_bar.scale_y = (self.hp / 1500) * 25
         self.health_text.text = str(max(0, int(self.hp)))
         if self.hp <= 0:
+            winner_team = 'bot' if self.team == 'enemy' else 'player'
+            if '__main__' in sys.modules and hasattr(sys.modules['__main__'], 'trigger_game_over'):
+                sys.modules['__main__'].trigger_game_over(winner_team)
             destroy(self)
 
     def take_damage(self, amount):
@@ -84,6 +87,9 @@ class Tower2(Entity):
         self.health_bar.scale_y = (self.hp / 1500) * 25
         self.health_text.text = str(max(0, int(self.hp)))
         if self.hp <= 0:
+            winner_team = 'bot' if self.team == 'enemy' else 'player'
+            if '__main__' in sys.modules and hasattr(sys.modules['__main__'], 'trigger_game_over'):
+                sys.modules['__main__'].trigger_game_over(winner_team)
             destroy(self)
 
     def take_damage(self, amount):

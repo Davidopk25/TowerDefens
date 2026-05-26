@@ -7,36 +7,30 @@ class Game:
     def __init__(self):
         self.money = Money(self)
 
-        self.money_border = Entity(
-            parent=camera.ui,
-            model=Quad(radius=0.2),
-            color=color.rgba(255, 255, 55, 255),
-            position=(-0.28, 0.465, 2),
-            scale=(0.27, 0.09)
-        )
+        self.ui_container = Entity(parent=camera.ui)
 
         self.money_background = Entity(
-            parent=camera.ui,
-            model=Quad(radius=0.2),
+            parent=self.ui_container,
+            model=Quad,
             color=color.rgba(0, 0, 0, 55),
-            position=(-0.28, 0.465, 1),
-            scale=(0.25, 0.07)
+            position=(-0.250, 0.455, 1),
+            scale=(0.15, 0.065)
         )
 
         self.coin_icon = Entity(
-            parent=camera.ui,
+            parent=self.ui_container,
             model='quad',
             texture='icons/Coin.png',
-            position=(-0.31, 0.465),
-            scale=(0.07, 0.04),
+            position=(-0.295, 0.455),
+            scale=(0.1, 0.055),
         )
 
         self.money_text = Text(
             text=f'{self.money.amount}',
-            parent=camera.ui,
-            position=(-0.29, 0.4815),
-            origin=(-0.5, 0.5),
-            scale=1.5,
+            parent=self.ui_container,
+            position=(-0.275, 0.462),
+            origin=(-0.75, 0.3),
+            scale=1.4,
             color=color.yellow
         )
 

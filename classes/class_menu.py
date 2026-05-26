@@ -227,3 +227,5 @@ class Menu(Entity):
             return
         unit = unit_class(position=spawn_position)
         unit.enemy_tower = self.enemy_tower
+        if '__main__' in sys.modules and hasattr(sys.modules['__main__'], 'active_units'):
+           sys.modules['__main__'].active_units.append(unit)
