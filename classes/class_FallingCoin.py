@@ -16,7 +16,6 @@ class FallingCoin(Button):
             pressed_color=color.white,
             model='models/Coin.obj',
             texture='models/Coin.png',
-
             scale=10,
             position=(x, 100, z),
             rotation_x = 90,
@@ -26,6 +25,8 @@ class FallingCoin(Button):
         self.rotation_speed = 270
         self.fall_speed = 100
         self.grounded = False
+        if '__main__' in sys.modules and hasattr(sys.modules['__main__'], 'active_coins'):
+           sys.modules['__main__'].active_coins.append(self)
         invoke(self.remove_coin, delay=10)
 
     def update(self):
