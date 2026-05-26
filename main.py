@@ -8,6 +8,7 @@ from classes.class_tower import Tower1, Tower2
 from classes.class_menu import Menu
 from classes.class_game import Game
 from classes.class_bot import Bot
+from classes.splach_screens import SplashScreen
 from classes.unit import class_Knight, class_Archer, class_Giant
 from ursina import *
 import random
@@ -20,12 +21,16 @@ ui_text = None
 ui_restart_btn = None
 
 game_is_over = False
+game_started = False
+
+main_menu_panel = None
 
 def init_game():
     """ Функция полной инициализации и перезапуска игры до заводских настроек """
-    global game, field, player_tower, enemy_tower, menu, my_bot, active_units, active_coins, game_is_over
+    global game, field, player_tower, enemy_tower, menu, my_bot, active_units, active_coins, game_is_over, game_started
 
     game_is_over = False
+    game_started = False
 
     for unit in active_units:
         if unit and not id(unit) == id(None):
@@ -47,6 +52,7 @@ def init_game():
     game = Game()
     game.money.amount = 100
     game.money_text.text = f'{game.money.amount}'
+    game.ui_container.enabled = False
 
     player_tower = Tower1(team='enemy')  # Ваша башня
     enemy_tower = Tower2(team='player')  # Башня бота
@@ -60,11 +66,57 @@ def init_game():
 
     menu = Menu(game=game, field=field, enemy_tower=enemy_tower)
     menu.enemy_tower = enemy_tower
+    menu.enabled = False
 
     # Перезапускаем бота
     my_bot = Bot(field)
     my_bot.money = 100
 
+def create_main_menu():
+    """ Создает маленькую панель главного меню с кнопками Играть и Выйти """
+    global main_menu_panel
+
+    main_menu_panel = Entity(
+        parent=camera.ui,
+        model='quad',
+        color=color.rgba(0, 0, 0, 180),
+        scale=(0.8, 1),
+        position=(0, 0),
+        collider='box'
+    )
+
+    # Кнопка Играть
+    Button(
+        parent=main_menu_panel,
+        text='Играть',
+        scale=(0.275, 0.075),
+        position=(0, 0.055, -1),
+        color=color.cyan,
+        text_color=color.black,
+        on_click=start_battle
+    )
+
+    # Кнопка Выйти
+    Button(
+        parent=main_menu_panel,
+        text='Выйти',
+        scale=(0.2, 0.065),
+        position=(0, -0.055, -1),
+        color=color.red,
+        text_color=color.white,
+        on_click=application.quit
+    )
+
+def start_battle():
+    """ Вызывается при нажатии кнопки 'Играть' в Главном Меню """
+    global game_started, main_menu_panel, menu, game
+
+    game_started = True
+
+    destroy(main_menu_panel)
+
+    menu.enabled = True
+    game.ui_container.enabled = True
 
 def trigger_game_over(winner):
     """ Вызывается из класса башни, когда у неё 0 ХП """
@@ -125,6 +177,8 @@ def restart_game():
 
     init_game()
 
+    # После рестарта снова выводим главное меню
+    create_main_menu()
 
 if __name__ == "__main__":
     app = Ursina(size=(720, 1080))
@@ -138,8 +192,6 @@ if __name__ == "__main__":
 
     field = Field(game=None)
 
-    init_game()
-
     sky = Sky(Texture="sky_sunset")
     ground = Entity(
         model='plane',
@@ -150,17 +202,47 @@ if __name__ == "__main__":
         collider='box'
     )
 
+    init_game()
+
+    splash = SplashScreen(on_complete=create_main_menu)
+
+    splash_duration = 5.0
+    splash_timer = 0.0
+    current_step_index = 0
+
     def update():
-        if not game_is_over:
+        global splash, splash_timer, current_step_index
+
+        if splash is not None:
+            splash_timer += time.dt
+            progress_ratio = splash_timer / splash_duration
+
+            if hasattr(splash, 'logo') and splash.logo:
+                splash.logo.scale_x = window.aspect_ratio
+
+            if progress_ratio >= 1.0:
+                splash.progress_bar.scale_x = 0.5
+                splash.finish()
+                splash = None
+                return
+
+            splash.progress_bar.scale_x = progress_ratio * 0.5
+
+            step_index = int(progress_ratio * len(splash.loading_steps))
+            step_index = min(step_index, len(splash.loading_steps) - 1)
+
+            if step_index != current_step_index:
+                current_step_index = step_index
+                splash.loading_text.text = splash.loading_steps[step_index]
+
+            return
+
+        if game_started and not game_is_over:
             game.money.update()
             my_bot.update()
 
-            global active_units, active_coins
-            active_units = [u for u in active_units if u and u.enabled]
-            active_coins = [c for c in active_coins if c and c.enabled]
-
     def spawn_coin():
-        if not game_is_over:
+        if game_started and not game_is_over:
             FallingCoin(game=game, field=ground)
         invoke(spawn_coin, delay=random.uniform(13, 13))
 
