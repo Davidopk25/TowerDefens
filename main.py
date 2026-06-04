@@ -244,6 +244,7 @@ if __name__ == "__main__":
     def spawn_coin():
         if game_started and not game_is_over:
             FallingCoin(game=game, field=ground)
+
         invoke(spawn_coin, delay=random.uniform(13, 13))
 
     spawn_coin()
