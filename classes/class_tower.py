@@ -96,4 +96,3 @@ class Tower2(Entity):
         self.hp -= amount
         if self.hp < 0:
             self.hp = 0
-

@@ -32,7 +32,6 @@ def init_game():
     game_is_over = False
     game_started = False
 
-
     for unit in active_units:
         if unit and not id(unit) == id(None):
             destroy(unit)
@@ -53,7 +52,6 @@ def init_game():
     game = Game()
     game.money.amount = 100
     game.money_text.text = f'{game.money.amount}'
-
     game.ui_container.enabled = False
 
     player_tower = Tower1(team='enemy')  # Ваша башня
@@ -68,7 +66,6 @@ def init_game():
 
     menu = Menu(game=game, field=field, enemy_tower=enemy_tower)
     menu.enemy_tower = enemy_tower
-
     menu.enabled = False
 
     # Перезапускаем бота
