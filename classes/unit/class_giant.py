@@ -5,9 +5,9 @@ class Giant(Entity):
     price = 150
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
-            model = 'models\Giant1.glb',
+            model = 'models\Giant.obj',
             scale=(15, 20, 15),
-            rotation=(0, 180, 0),
+            rotation=(0, 270, 0),
             position=position,
             collider='box',
             **kwargs

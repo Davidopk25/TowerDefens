@@ -1,4 +1,5 @@
 from ursina import *
+
 class Tower1(Entity):
     def __init__(self, team='player', **kwargs):
         z_position = 600 if team == 'player' else 0
@@ -95,3 +96,4 @@ class Tower2(Entity):
         self.hp -= amount
         if self.hp < 0:
             self.hp = 0
+

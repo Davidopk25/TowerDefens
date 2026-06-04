@@ -6,6 +6,7 @@ class Knight(Entity):
         super().__init__(
             model='models/Knight.glb',
             scale=(15, 20, 15),
+            rotation=(0, 0, 0),
             position=position,
             collider='box',
             **kwargs

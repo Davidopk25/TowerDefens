@@ -1,6 +1,6 @@
 from .unit.class_Knight import Knight
-from .unit.class_Archer import Archer
-from .unit.class_Giant import Giant
+from .unit.class_archer import Archer
+from .unit.class_giant import Giant
 from ursina import *
 
 class Menu(Entity):
@@ -186,6 +186,7 @@ class Menu(Entity):
         )
 
         left_group.extend([sword_left, bow_left, giant_left])
+
 
         self.enabled = False
 

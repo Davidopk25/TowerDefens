@@ -7,6 +7,7 @@ class Archer(Entity):
         super().__init__(
             model='models\Knight.glb',
             scale=(8, 14, 8),
+            rotation=(0, 180, 0),
             position=position,
             collider='box',
             **kwargs

@@ -1,7 +1,7 @@
 from ursina import *
 from .unit.class_Knight import Knight
-from .unit.class_Archer import Archer
-from .unit.class_Giant import Giant
+from .unit.class_archer import Archer
+from .unit.class_giant import Giant
 import random
 
 class Bot:
@@ -44,6 +44,8 @@ class Bot:
             position=spawn_position,
         )
         unit.speed = -abs(unit.speed)
+        unit.rotation_y += 180
+
         unit.enemy_tower = self.field.player_tower
         if '__main__' in sys.modules and hasattr(sys.modules['__main__'], 'active_units'):
            sys.modules['__main__'].active_units.append(unit)
