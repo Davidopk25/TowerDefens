@@ -1,4 +1,5 @@
 from ursina import *
+
 class Tower1(Entity):
     def __init__(self, team='player', **kwargs):
         z_position = 600 if team == 'player' else 0

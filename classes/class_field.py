@@ -9,6 +9,7 @@ class Field(Entity):
             rotation=(0, -180, 0),
             scale=10,
             model="models/Field.obj",
+            texture="icons/Field.png",
             color=color.gray,
             collider='box',
             **kwargs
