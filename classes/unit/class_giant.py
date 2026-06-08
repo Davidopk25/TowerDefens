@@ -7,7 +7,7 @@ class Giant(Entity):
         super().__init__(
             model = 'models\Giant.obj',
             scale=(15, 20, 15),
-            rotation=(0, 270, 0),
+            rotation=(0, -90, 0),
             position=position,
             collider='box',
             **kwargs

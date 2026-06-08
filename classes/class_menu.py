@@ -187,6 +187,8 @@ class Menu(Entity):
 
         left_group.extend([sword_left, bow_left, giant_left])
 
+        self.enabled = False
+
         Button(
             parent=self,
             model='quad',
