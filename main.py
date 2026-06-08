@@ -10,6 +10,7 @@ from classes.class_game import Game
 from classes.class_bot import Bot
 from classes.splach_screens import SplashScreen
 from classes.unit import class_Knight, class_Archer, class_Giant
+from classes.class_ballista import Ballista
 from ursina import *
 import random
 
@@ -56,6 +57,9 @@ def init_game():
 
     player_tower = Tower1(team='enemy')  # Ваша башня
     enemy_tower = Tower2(team='player')  # Башня бота
+    
+    Ballista.spawn_ballistas(player_tower.position, 'player', enemy_tower=player_tower, z_offset=20)
+    Ballista.spawn_ballistas(enemy_tower.position, 'enemy', enemy_tower=enemy_tower,z_offset=-20)
 
     class_Knight.enemy_tower = player_tower
     class_Archer.enemy_tower = player_tower
@@ -189,7 +193,7 @@ if __name__ == "__main__":
     camera.position = (0, 475, -200)
     camera.rotation_x = 45
     # EditorCamera()
-
+# s
     field = Field(game=None)
 
     sky = Sky(Texture="sky_sunset")
