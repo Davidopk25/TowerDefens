@@ -193,7 +193,7 @@ if __name__ == "__main__":
     camera.position = (0, 475, -200)
     camera.rotation_x = 45
     # EditorCamera()
-# s
+
     field = Field(game=None)
 
     sky = Sky(Texture="sky_sunset")
