@@ -7,17 +7,22 @@ class Ballista(Entity):
             scale=custom_scale,
             **kwargs
         )
-        self.target_team = target_team  # 'player' или 'enemy'
+        self.target_team = target_team
         self.lane_x = lane_x
         self.attack_range = 150
         self.damage = 30
         self.cooldown = 1.5
         self.timer = 0
-        
-        # Стрела (как дочерний объект)
+
         self.arrow = Entity(parent=self, model='models/Strela.obj', scale=1, enabled=False)
  
     def update(self):
+        if getattr(self, 'destroyed', False):
+            return
+
+        if not hasattr(self, 'enemy_tower') or self.enemy_tower is None or getattr(self.enemy_tower, 'destroyed', False):
+            return
+ 
         self.timer += time.dt
         if self.timer >= self.cooldown:
             units = sys.modules['__main__'].active_units
@@ -28,26 +33,36 @@ class Ballista(Entity):
                 print(f"{self.target_team.capitalize()} ballista shoots at {target.name}")
  
     def find_target(self, all_units):
+        # 1. Сначала проверяем, жива ли сама башня, прежде чем брать её Z
+        # Если башни нет или она уничтожена, возвращаем None сразу
+        if not hasattr(self, 'enemy_tower') or self.enemy_tower is None or getattr(self.enemy_tower, 'destroyed', False):
+            return None
+ 
+        # Безопасно получаем Z башни
+        tower_z = self.enemy_tower.z
+ 
         for unit in all_units:
+            # Пропускаем юниты, которые уже удалены
             if not unit or getattr(unit, 'destroyed', False):
                 continue
-
+ 
             if abs(unit.x - self.lane_x) < 40:
-
-                dist_to_tower = abs(unit.z - (self.enemy_tower.z if hasattr(self, 'enemy_tower') else 0))
-
-                if unit.enemy_tower and hasattr(unit.enemy_tower, 'z'):
+                # Используем заранее сохраненный tower_z, чтобы не обращаться к башне повторно
+                dist_to_tower = abs(unit.z - tower_z)
+ 
+                # Проверка на то, что у юнита тоже есть башня и она жива
+                if hasattr(unit, 'enemy_tower') and unit.enemy_tower and not getattr(unit.enemy_tower, 'destroyed', False):
                     dist_to_tower = abs(unit.z - unit.enemy_tower.z)
-
-                    is_attacking_tower = dist_to_tower <= unit.attack_range
-                    
-                    if is_attacking_tower:
-
-                        if self.target_team == 'player' and unit.speed < 0:
-                            return unit
-                        elif self.target_team == 'enemy' and unit.speed > 0:
-                            return unit
+ 
+                is_attacking_tower = dist_to_tower <= unit.attack_range
+ 
+                if is_attacking_tower:
+                    if self.target_team == 'player' and unit.speed < 0:
+                        return unit
+                    elif self.target_team == 'enemy' and unit.speed > 0:
+                        return unit
         return None
+ 
  
     def shoot(self, target):
         projectile = Entity(
@@ -72,9 +87,8 @@ class Ballista(Entity):
                 
     @classmethod
     def spawn_ballistas(cls, tower_position, team, enemy_tower, z_offset):
-        # Настройки смещения: теперь их легко править
         spawn_x = [-135, 0, 135]
-        spawn_y = [75, 100, 75]  # Высота для каждой из 3-х баллист
+        spawn_y = [75, 100, 75]
         
         lane_offsets = [-88, 0, 88]
         ballistas = []
@@ -82,8 +96,7 @@ class Ballista(Entity):
         scales = [7.5, 10, 7.5]
         for i in range(len(spawn_x)):
             rotation_y = 180 if team == 'player' else 0
-    
-            # Собираем позицию: к координатам башни добавляем смещение
+            
             pos = (
                 tower_position.x + spawn_x[i],
                 tower_position.y + spawn_y[i],
@@ -99,9 +112,5 @@ class Ballista(Entity):
                 rotation=(0, rotation_y, 0)
             )
             ballistas.append(ballista)
-<<<<<<< HEAD
         return ballistas
  
-=======
-        return ballistas
->>>>>>> origin/Rat

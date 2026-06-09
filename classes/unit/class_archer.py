@@ -17,7 +17,7 @@ class Archer(Entity):
         self.damage = 25
         self.enemy_tower = None
         self.attack_cooldown = 1.2
-        self.attack_timer = 0 # Таймер для отсчета времени до следующего удара
+        self.attack_timer = 0
         self.max_health = 35
         self.attack_range = 150
         self.health_bar = Entity(

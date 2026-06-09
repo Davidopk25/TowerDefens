@@ -16,6 +16,7 @@ import random
 
 active_units = []
 active_coins = []
+active_ballistas = []
 
 ui_overlay = None
 ui_text = None
@@ -28,7 +29,7 @@ main_menu_panel = None
 
 def init_game():
     """ Функция полной инициализации и перезапуска игры до заводских настроек """
-    global game, field, player_tower, enemy_tower, menu, my_bot, active_units, active_coins, game_is_over, game_started
+    global game, field, player_tower, enemy_tower, menu, my_bot, active_units, active_coins, active_ballistas, game_is_over, game_started
 
     game_is_over = False
     game_started = False
@@ -42,6 +43,11 @@ def init_game():
         if coin:
             destroy(coin)
     active_coins.clear()
+    
+    for ballista in active_ballistas:
+        if ballista:
+            destroy(ballista)
+    active_ballistas.clear()
 
     if 'player_tower' in globals() and player_tower: destroy(player_tower)
     if 'enemy_tower' in globals() and enemy_tower: destroy(enemy_tower)
@@ -55,11 +61,13 @@ def init_game():
     game.money_text.text = f'{game.money.amount}'
     game.ui_container.enabled = False
 
-    player_tower = Tower1(team='enemy')  # Ваша башня
-    enemy_tower = Tower2(team='player')  # Башня бота
+    player_tower = Tower1(team='enemy')
+    enemy_tower = Tower2(team='player')
     
-    Ballista.spawn_ballistas(player_tower.position, 'player', enemy_tower=player_tower, z_offset=20)
-    Ballista.spawn_ballistas(enemy_tower.position, 'enemy', enemy_tower=enemy_tower,z_offset=-20)
+    new_ballistas_player = Ballista.spawn_ballistas(player_tower.position, 'player', enemy_tower=player_tower, z_offset=20)
+    new_ballistas_enemy = Ballista.spawn_ballistas(enemy_tower.position, 'enemy', enemy_tower=enemy_tower, z_offset=-20)
+    active_ballistas.extend(new_ballistas_player)
+    active_ballistas.extend(new_ballistas_enemy)
 
     class_Knight.enemy_tower = player_tower
     class_Archer.enemy_tower = player_tower
@@ -72,7 +80,6 @@ def init_game():
     menu.enemy_tower = enemy_tower
     menu.enabled = False
 
-    # Перезапускаем бота
     my_bot = Bot(field)
     my_bot.money = 100
 
@@ -89,7 +96,6 @@ def create_main_menu():
         collider='box'
     )
 
-    # Кнопка Играть
     Button(
         parent=main_menu_panel,
         text='Играть',
@@ -100,7 +106,6 @@ def create_main_menu():
         on_click=start_battle
     )
 
-    # Кнопка Выйти
     Button(
         parent=main_menu_panel,
         text='Выйти',
@@ -170,6 +175,9 @@ def trigger_game_over(winner):
         on_click=restart_game
     )
 
+    for ballista in active_ballistas:
+        if ballista and not getattr(ballista, 'destroyed:', False):
+            destroy(ballista)
 
 def restart_game():
     """ Очищает элементы UI конца игры и перезапускает мир """
@@ -181,7 +189,6 @@ def restart_game():
 
     init_game()
 
-    # После рестарта снова выводим главное меню
     create_main_menu()
 
 if __name__ == "__main__":
@@ -193,7 +200,7 @@ if __name__ == "__main__":
     camera.position = (0, 475, -200)
     camera.rotation_x = 45
     # EditorCamera()
-# s
+    
     field = Field(game=None)
 
     sky = Sky(Texture="sky_sunset")

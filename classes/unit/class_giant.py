@@ -2,7 +2,7 @@ from ursina import *
 enemy_tower = None
 
 class Giant(Entity):
-    price = 150
+    price = 1
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
             model = 'models\Giant.obj',
@@ -17,7 +17,7 @@ class Giant(Entity):
         self.damage = 60
         self.enemy_tower = None
         self.attack_cooldown = 1.8
-        self.attack_timer = 0 # Таймер для отсчета времени до следующего удара
+        self.attack_timer = 0
         self.max_health = 160
         self.attack_range = 55
         self.health_bar = Entity(

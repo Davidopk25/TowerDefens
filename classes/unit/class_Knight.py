@@ -16,7 +16,7 @@ class Knight(Entity):
         self.damage = 20
         self.enemy_tower = None
         self.attack_cooldown = 0.8
-        self.attack_timer = 0 # Таймер для отсчета времени до следующего удара
+        self.attack_timer = 0
         self.max_health = 60
         self.attack_range = 45
         self.health_bar = Entity(
