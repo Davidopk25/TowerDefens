@@ -2,7 +2,7 @@ from ursina import *
 enemy_tower = None
 
 class Giant(Entity):
-    price = 1
+    price = 150
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
             model = 'models\Giant.obj',
