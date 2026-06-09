@@ -1,65 +1,25 @@
-from ursina import *
+from ursina import time
 
-class Money(Entity):
-    def __init__(self,
-                 add_to_scene_entities=True,
-                 enabled=False,
-                 position=None,
-                 rotation=None, scale=1,
-                 model='',
-                 collider=None,
-                 eternal=True,
-                 name='Монета',
-                 **kwargs):
-
-        super().__init__(add_to_scene_entities,
-                         enabled,
-                         position,
-                         rotation,
-                         scale,
-                         model,
-                         color,
-                         collider,
-                         eternal,
-                         name,
-                         **kwargs)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-from ursina import *
-import random
-
-class Coin(Entity):
-
-    def __init__(self, game):
-
-        super().__init__(
-            model='sphere',
-            color=color.yellow,
-            scale=0.5,
-            position=(
-                random.uniform(-10,10),
-                1,
-                random.uniform(-10,10),
-            )
-        )
-
+class Money:
+    def __init__(self, game, start_amount=0):
         self.game = game
+        self.amount = start_amount
+        self.passive_income_timer = 0
+        self.passive_income_per_second = 5
 
-    def input(self, key):
+    def update(self):
+        self.passive_income_timer += time.dt
+        if self.passive_income_timer >= 1:
+            self.add(self.passive_income_per_second)
+            self.passive_income_timer = 0
 
-        if self.hovered and key == 'left mouse down':
+    def add(self, value):
+        self.amount += value
+        self.game.money_text.text = f'{self.amount}'
 
-            self.game.money += 1
-            destroy(self)
+    def spend(self, value):
+        if self.amount >= value:
+            self.amount -= value
+            self.game.money_text.text = f'{self.amount}'
+            return True
+        return False

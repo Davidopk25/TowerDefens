@@ -1,34 +1,32 @@
 from ursina import *
-enemy_tower = None
 
-class Archer(Entity):
-    price = 75
+class Knight(Entity):
+    price = 50
     def __init__(self, position=(0,0,0), **kwargs):
         super().__init__(
-            model='models\Knight.glb',
-            scale=(8, 14, 8),
+            model='models/Knight.glb',
+            scale=(15, 20, 15),
             rotation=(0, 180, 0),
             position=position,
             collider='box',
             **kwargs
         )
-        self.speed = 75
-        self.health = 35
-        self.damage = 25
+        self.speed = 65
+        self.health = 60
+        self.damage = 20
         self.enemy_tower = None
-        self.attack_cooldown = 1.2
+        self.attack_cooldown = 0.8
         self.attack_timer = 0
-        self.max_health = 35
-        self.attack_range = 150
+        self.max_health = 60
+        self.attack_range = 45
         self.health_bar = Entity(
             parent=self,
             model='quad',
             color=color.green,
-            scale=(1.5, 0.12),
-            position=(0, 1.3, 0),
+            scale=(1.5, 0.15),
+            position=(0, 1.5, 0),
             billboard=True
         )
-
     def update(self):
         if hasattr(self, 'max_health') and self.max_health > 0:
             base_scale = 1.5 if self.__class__.__name__ == 'Knight' else (2.0 if self.__class__.__name__ == 'Giant' else 1.5)
